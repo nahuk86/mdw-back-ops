@@ -1,0 +1,6 @@
+@MDW_Back_ops_HostAddress = http://localhost:5093
+
+GET {{MDW_Back_ops_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
