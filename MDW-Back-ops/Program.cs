@@ -63,8 +63,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowSpecificOrigins"); // This MUST come before any middleware handling requests
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 
 

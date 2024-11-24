@@ -89,6 +89,19 @@ namespace MDW_Back_ops.Controllers
             return Ok(new { message = "Acceso autorizado a la pantalla privada." });
         }
 
+        [HttpGet("validate-token")]
+        public IActionResult ValidateToken()
+        {
+            var authHeader = Request.Headers["Authorization"];
+            if (string.IsNullOrEmpty(authHeader))
+            {
+                return Unauthorized(new { message = "Token no proporcionado" });
+            }
+
+            var token = authHeader.ToString().Replace("Bearer ", "");
+            return Ok(new { message = "Token recibido", token });
+        }
+
         private string GenerateJwtToken(User user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]));
