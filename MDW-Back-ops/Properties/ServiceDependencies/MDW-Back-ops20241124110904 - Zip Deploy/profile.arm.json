@@ -21,7 +21,7 @@
     },
     "resourceName": {
       "type": "string",
-      "defaultValue": "MDW-Back-ops20241124021400",
+      "defaultValue": "MDW-Back-ops20241124110904",
       "metadata": {
         "description": "Name of the main resource to be created by this template."
       }
