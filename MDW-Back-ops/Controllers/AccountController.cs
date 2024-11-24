@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 using MDW_Back_ops.Data;
 using MDW_Back_ops.Models;
 using Microsoft.IdentityModel.Tokens;
@@ -79,6 +80,13 @@ namespace MDW_Back_ops.Controllers
             var token = GenerateJwtToken(user);
 
             return Ok(new { Token = token });
+        }
+
+        [Authorize] // Requiere autenticación para acceder
+        [HttpGet("protected")]
+        public IActionResult GetProtectedData()
+        {
+            return Ok(new { message = "Acceso autorizado a la pantalla privada." });
         }
 
         private string GenerateJwtToken(User user)

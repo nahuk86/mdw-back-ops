@@ -29,18 +29,18 @@ builder.Services.AddCors(options =>
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
     {
-        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "yourIssuer",
-            ValidAudience = "yourAudience",
-            IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("yourSuperSecretKey"))
+            ValidIssuer = builder.Configuration["JwtSettings:Issuer"], // Desde appsettings.json
+            ValidAudience = builder.Configuration["JwtSettings:Audience"], // Desde appsettings.json
+            IssuerSigningKey = new SymmetricSecurityKey(
+                System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"])) // Desde appsettings.json
         };
     });
-
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -65,6 +65,7 @@ app.UseCors("AllowSpecificOrigins"); // This MUST come before any middleware han
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseAuthentication();
+
 
 
 app.MapControllers();
