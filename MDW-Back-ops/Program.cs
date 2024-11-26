@@ -14,6 +14,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         .LogTo(Console.WriteLine) // Envía logs a la consola
 );
 
+builder.Services.AddDbContext<ScannersDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ScannersDB")));
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins", policy =>
